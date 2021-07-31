@@ -1,7 +1,15 @@
-- JOB: "intercept -g $DEVNODE | macos_musclemem | uinput -d $DEVNODE"
+# - CMD: "mux -c keyboard"
+# - JOB: "mux -i keyboard | caps2esc -m 1 | uinput -d $DEVNODE"
+# - JOB: "mux -i keyboard | macos_musclemem | uinput -d $DEVNODE"
+# - JOB: "intercept -g $DEVNODE | xswitch -o keyboard -c gnome-terminal-server -o shifted-keyboard"
+# - JOB: "intercept -g $DEVNODE | mux -o keyboard"
+# - CMD: "uinput -p -d /dev/input/by-path/*-event-kbd > /etc/interception/keyboard.yaml"
+- JOB: "echo $DEVNODE >> /etc/interception/devnodes; intercept -g $DEVNODE | macos_musclemem | uinput -d $DEVNODE"
   DEVICE:
     EVENTS:
       EV_KEY: [
-        KEY_LEFTMETA, KEY_RIGHTMETA, KEY_LEFTCTRL, KEY_RIGHTCTRL, KEY_TAB, KEY_SPACE,
+        KEY_LEFTMETA, KEY_RIGHTMETA,
+        KEY_LEFTCTRL, KEY_RIGHTCTRL,
+        KEY_TAB, KEY_SPACE, KEY_ESC, KEY_CAPSLOCK,
         KEY_A, KEY_B, KEY_C, KEY_D, KEY_E, KEY_F, KEY_G, KEY_H, KEY_I, KEY_J, KEY_K, KEY_L, KEY_M,
         KEY_N, KEY_O, KEY_P, KEY_Q, KEY_R, KEY_S, KEY_T, KEY_U, KEY_V, KEY_W, KEY_X, KEY_Y, KEY_Z]

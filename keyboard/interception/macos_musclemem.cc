@@ -1,7 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <libgen.h>
+#include <getopt.h>
 #include <linux/input.h>
-#include <vector>
+
+#define DEFAULT_PROGNAME "macos_musclemem"
+#define OPTSTR "s:h"
+#define USAGE_FMT  "%s [-s] [-h]\n    -s: add SHIFT modifier key to CTRL on intercepted output"
+#define MAX_EVENTS 5
 
 typedef enum {
     START,
@@ -23,6 +29,10 @@ typedef enum {
     LEFT,
     RIGHT
 } handed_t;
+
+typedef struct {
+  int           with_shift;
+} options_t;
 
 typedef struct input_event event_t;
 
@@ -83,24 +93,34 @@ int getHandedEquivalent(int code, modifier_t result) {
     return -1;
 }
 
+event_t events[MAX_EVENTS];
 void write_event(event_t* event) {
     fwrite(event, sizeof(event_t), 1, stdout);
 }
 
-event_t event3[3];
-void write_event3(event_t* e1, event_t* e2, event_t* e3) {
-    event3[0] = *e1;
-    event3[1] = *e2;
-    event3[2] = *e3;
-    fwrite(event3, sizeof(event_t), 3, stdout);
+void write_event2(event_t* e1, event_t* e2) {
+    events[0] = *e1; events[1] = *e2;
+    fwrite(events, sizeof(event_t), 2, stdout);
 }
 
-int main(void) {
+void write_event3(event_t* e1, event_t* e2, event_t* e3) {
+    events[0] = *e1; events[1] = *e2; events[2] = *e3;
+    fwrite(events, sizeof(event_t), 3, stdout);
+}
+
+void write_event4(event_t* e1, event_t* e2, event_t* e3, event_t* e4) {
+    events[0] = *e1; events[1] = *e2; events[2] = *e3; events[3] = *e4;
+    fwrite(events, sizeof(event_t), 4, stdout);
+}
+
+
+void event_loop(int with_shift) {
     // Don't buffer stdin or stdout--we want instant reactions
     setbuf(stdin, NULL), setbuf(stdout, NULL);
 
     state_t state = START;
 
+    event_t shift_event;
     event_t meta_pressed_event;
 
     event_t event;
@@ -124,14 +144,24 @@ int main(void) {
                     write_event3(&meta_pressed_event, &syn_event, &event);
                     state = START;
                 } else if (event.value == KEY_STROKE_DOWN) {
-                    if (event.code == KEY_TAB || event.code == KEY_SPACE || event.code == KEY_GRAVE) {
+                    if (
+                        event.code == KEY_TAB ||
+                        event.code == KEY_SPACE ||
+                        event.code == KEY_GRAVE
+                    ) {
                         write_event3(&meta_pressed_event, &syn_event, &event);
                         state = META_AS_META;
                     } else {
                         meta_pressed_event.code = getHandedEquivalent(
-                            meta_pressed_event.code,
-                            CTRL);
-                        write_event3(&meta_pressed_event, &syn_event, &event);
+                            meta_pressed_event.code, CTRL);
+                        if (!with_shift) {
+                            write_event3(&meta_pressed_event, &syn_event, &event);
+                        } else {
+                            shift_event = meta_pressed_event;
+                            shift_event.code = getHandedEquivalent(
+                                meta_pressed_event.code, SHIFT);
+                            write_event4(&meta_pressed_event, &shift_event, &syn_event, &event);
+                        }
                         state = META_AS_CTRL;
                     }
                 }
@@ -148,8 +178,14 @@ int main(void) {
 
             case META_AS_CTRL:
                 if (mod == META && event.value == KEY_STROKE_UP) {
+                    // Release the same key, whether META or CTRL
                     event.code = meta_pressed_event.code;
-                    write_event(&event);
+                    if (!with_shift) {
+                        write_event(&event);
+                    } else {
+                        shift_event.value = KEY_STROKE_UP;
+                        write_event2(&shift_event, &event);
+                    }
                     state = START;
                 } else {
                     write_event(&event);
@@ -157,4 +193,29 @@ int main(void) {
             break;
         }
     }
+}
+
+void usage(char *progname, int opt) {
+    fprintf(stderr, USAGE_FMT, progname ? progname : DEFAULT_PROGNAME);
+    exit(EXIT_FAILURE);   
+}
+
+int main(int argc, char* argv[]) {
+    int opt;
+    options_t options = { 0 };
+
+    while ((opt = getopt(argc, argv, OPTSTR)) != EOF)
+       switch(opt) {
+            case 's':
+                options.with_shift = 1;
+            break;
+
+
+            case 'h':
+            default:
+                usage(basename(argv[0]), opt);
+            break;
+       }
+
+    event_loop(options.with_shift);
 }
