@@ -1,0 +1,10 @@
+[Unit]
+Description=udevmon
+Wants=systemd-udev-settle.service
+After=systemd-udev-settle.service
+
+[Service]
+ExecStart=/usr/bin/nice -n -20 /usr/local/bin/udevmon 
+
+[Install]
+WantedBy=multi-user.target

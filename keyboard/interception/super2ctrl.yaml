@@ -1,0 +1,4 @@
+- JOB: "intercept -g $DEVNODE | super2ctrl | uinput -d $DEVNODE"
+  DEVICE:
+    EVENTS:
+      EV_KEY: [KEY_LEFTMETA, KEY_RIGHTMETA, KEY_LEFTCTRL, KEY_RIGHTCTRL]
