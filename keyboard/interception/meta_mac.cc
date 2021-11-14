@@ -15,7 +15,6 @@ typedef enum {
     FIRST_KEY,
     META_AS_META,
     META_AS_CTRL,
-    META_AS_SHIFT,
     META_AS_NONE
 } state_t;
 
@@ -137,7 +136,9 @@ void event_loop(int debug) {
 
     state_t state = START;
 
-    event_t chord_modifiers[10];
+    int meta_release_happened = 0;
+    int key_release_needed = 0;
+    event_t clipboard_key_event;
     event_t meta_pressed_event;
 
     event_t event;
@@ -187,15 +188,24 @@ void event_loop(int debug) {
                         write_event3(&meta_pressed_event, &syn_event, &event);
                         state = META_AS_META;
                     } else if (event.code == KEY_X) {
+                        meta_release_happened = 0;
+                        key_release_needed = 1;
                         event.code = KEY_CUT;
+                        clipboard_key_event = event;
                         write_event(&event);
                         state = META_AS_NONE;
                     } else if (event.code == KEY_C) {
+                        meta_release_happened = 0;
+                        key_release_needed = 1;
                         event.code = KEY_COPY;
+                        clipboard_key_event = event;
                         write_event(&event);
                         state = META_AS_NONE;
                     } else if (event.code == KEY_V) {
+                        meta_release_happened = 0;
+                        key_release_needed = 1;
                         event.code = KEY_PASTE;
+                        clipboard_key_event = event;
                         write_event(&event);
                         state = META_AS_NONE;
                     } else {
@@ -229,32 +239,38 @@ void event_loop(int debug) {
                 }
             break;
 
-            case META_AS_SHIFT:
-                if (debug) fprintf(stderr, "META_AS_SHIFT\n");
-                if (mod == META && event.value == KEY_STROKE_UP) {
-                    // Release the same key, whether META or SHIFT
-                    event.code = meta_pressed_event.code;
-                    write_event(&event);
-                    state = START;
-                } else {
-                    write_event(&event);
-                }
-            break;
-
             case META_AS_NONE:
                 if (debug) fprintf(stderr, "META_AS_NONE\n");
                 if (mod == META && event.value == KEY_STROKE_UP) {
-                    write_syn_event();
-                    state = START;
-                } else if (event.code == KEY_X) {
-                    event.code = KEY_CUT;
-                    write_event(&event);
-                } else if (event.code == KEY_C) {
-                    event.code = KEY_COPY;
-                    write_event(&event);
-                } else if (event.code == KEY_V) {
-                    event.code = KEY_PASTE;
-                    write_event(&event);
+                    if (key_release_needed) {
+                        // If the key chord hasn't completed yet, we need to wait for the meta
+                        // key release event before returning to start state
+                        meta_release_happened = 1;
+                    } else {
+                        write_syn_event();
+                        state = START;
+                    }
+                } else if (event.code == KEY_X || event.code == KEY_C || event.code == KEY_V) {
+                    if (event.code == KEY_X) event.code = KEY_CUT;
+                    if (event.code == KEY_C) event.code = KEY_COPY;
+                    if (event.code == KEY_V) event.code = KEY_PASTE;
+
+                    if (event.code == clipboard_key_event.code &&
+                        event.value == KEY_STROKE_UP
+                    ) {
+                        if (meta_release_happened) {
+                            // The meta key was released BEFORE the clipboard key was released,
+                            // so we need to simulate a meta modifier key release event
+                            state = START;
+                        } else {
+                            // The key was released before the meta modifier, so this is the
+                            // natural order, and we don't need to buffer the meta key release
+                            key_release_needed = 0;
+                        }
+                        write_event(&event);
+                    } else {
+                        write_event(&event);
+                    }
                 } else {
                     write_event(&event);
                 }
