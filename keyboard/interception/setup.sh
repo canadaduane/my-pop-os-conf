@@ -1,4 +1,12 @@
-# Install interception
+# Install from DEB
+$ wget https://launchpad.net/~deafmute/+archive/ubuntu/interception/+files/interception-tools_0.6.4~groovy~ppa4_amd64.deb
+$ dpkg -i interception-tools_0.6.4~groovy~ppa4_amd64.deb
+$ sudo apt --fix-broken install
+
+NOTE: this might be quicker:
+$ sudo apt install ./interception-tools_0.6.4~groovy~ppa4_amd64.deb
+
+# Compile & Install interception
 sudo apt install libudev-dev libyaml-cpp-dev libevdev-dev cmake libboost-all-dev 
 
 cd ~/Downloads

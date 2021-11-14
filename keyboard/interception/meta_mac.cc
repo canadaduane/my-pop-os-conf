@@ -1,19 +1,22 @@
 #include <stdio.h>
+#include <stdarg.h>
 #include <stdlib.h>
 #include <libgen.h>
 #include <getopt.h>
 #include <linux/input.h>
 
 #define DEFAULT_PROGNAME "macos_musclemem"
-#define OPTSTR "s:h"
-#define USAGE_FMT  "%s [-s] [-h]\n    -s: add SHIFT modifier key to CTRL on intercepted output"
+#define OPTSTR ":vh"
+#define USAGE_FMT  "%s [-v] [-h]\n    -v: verbose debug info"
 #define MAX_EVENTS 5
 
 typedef enum {
     START,
     FIRST_KEY,
     META_AS_META,
-    META_AS_CTRL
+    META_AS_CTRL,
+    META_AS_SHIFT,
+    META_AS_NONE
 } state_t;
 
 typedef enum {
@@ -31,7 +34,7 @@ typedef enum {
 } handed_t;
 
 typedef struct {
-  int           with_shift;
+  int           verbose;
 } options_t;
 
 typedef struct input_event event_t;
@@ -113,22 +116,52 @@ void write_event4(event_t* e1, event_t* e2, event_t* e3, event_t* e4) {
     fwrite(events, sizeof(event_t), 4, stdout);
 }
 
+void write_syn_event() {
+    write_event(&syn_event);
+}
 
-void event_loop(int with_shift) {
+void write_with_release(event_t* event) {
+    event_t released_event;
+
+    released_event.code = event->code;
+    released_event.time = event->time;
+    released_event.type = event->type;
+    released_event.value = KEY_STROKE_UP;
+
+    write_event3(event, &syn_event, &released_event);
+}
+
+void event_loop(int debug) {
     // Don't buffer stdin or stdout--we want instant reactions
     setbuf(stdin, NULL), setbuf(stdout, NULL);
 
     state_t state = START;
 
-    event_t shift_event;
+    event_t chord_modifiers[10];
     event_t meta_pressed_event;
 
     event_t event;
     while (fread(&event, sizeof(event), 1, stdin) == 1) {
+        // Skip misc
+        if (event.type == EV_MSC && event.code == MSC_SCAN) continue;
+
+        // Pass non-key events through
+        if (event.type != EV_KEY) {
+            write_event(&event);
+            continue;
+        }
+
+        if (debug) fprintf(stderr, "Event (<%ld.%06ld>): %d %d\n",
+            (long int)(event.time.tv_sec),
+            (long int)(event.time.tv_usec),
+            event.code,
+            event.value);
+
         modifier_t mod = getModifier(event.code);
 
         switch (state) {    
             case START:
+                if (debug) fprintf(stderr, "START\n");
                 if (mod == META && event.value == KEY_STROKE_DOWN) {
                     meta_pressed_event = event;
                     state = FIRST_KEY;
@@ -139,11 +172,13 @@ void event_loop(int with_shift) {
 
             case FIRST_KEY:
                 if (mod == META && event.value == KEY_STROKE_UP) {
+                    if (debug) fprintf(stderr, "FIRST_KEY (meta press/release)\n");
                     // If meta key is released here, then just forward the simple
                     // fact that the meta key was pressed:
                     write_event3(&meta_pressed_event, &syn_event, &event);
                     state = START;
                 } else if (event.value == KEY_STROKE_DOWN) {
+                    if (debug) fprintf(stderr, "FIRST_KEY (key down)\n");
                     if (
                         event.code == KEY_TAB ||
                         event.code == KEY_SPACE ||
@@ -151,23 +186,29 @@ void event_loop(int with_shift) {
                     ) {
                         write_event3(&meta_pressed_event, &syn_event, &event);
                         state = META_AS_META;
+                    } else if (event.code == KEY_X) {
+                        event.code = KEY_CUT;
+                        write_event(&event);
+                        state = META_AS_NONE;
+                    } else if (event.code == KEY_C) {
+                        event.code = KEY_COPY;
+                        write_event(&event);
+                        state = META_AS_NONE;
+                    } else if (event.code == KEY_V) {
+                        event.code = KEY_PASTE;
+                        write_event(&event);
+                        state = META_AS_NONE;
                     } else {
                         meta_pressed_event.code = getHandedEquivalent(
                             meta_pressed_event.code, CTRL);
-                        if (!with_shift) {
-                            write_event3(&meta_pressed_event, &syn_event, &event);
-                        } else {
-                            shift_event = meta_pressed_event;
-                            shift_event.code = getHandedEquivalent(
-                                meta_pressed_event.code, SHIFT);
-                            write_event4(&meta_pressed_event, &shift_event, &syn_event, &event);
-                        }
+                        write_event3(&meta_pressed_event, &syn_event, &event);
                         state = META_AS_CTRL;
                     }
                 }
             break;
 
             case META_AS_META:
+                if (debug) fprintf(stderr, "META_AS_META\n");
                 if (mod == META && event.value == KEY_STROKE_UP) {
                     write_event(&event);
                     state = START;
@@ -177,16 +218,43 @@ void event_loop(int with_shift) {
             break;
 
             case META_AS_CTRL:
+                if (debug) fprintf(stderr, "META_AS_CTRL\n");
                 if (mod == META && event.value == KEY_STROKE_UP) {
                     // Release the same key, whether META or CTRL
                     event.code = meta_pressed_event.code;
-                    if (!with_shift) {
-                        write_event(&event);
-                    } else {
-                        shift_event.value = KEY_STROKE_UP;
-                        write_event2(&shift_event, &event);
-                    }
+                    write_event(&event);
                     state = START;
+                } else {
+                    write_event(&event);
+                }
+            break;
+
+            case META_AS_SHIFT:
+                if (debug) fprintf(stderr, "META_AS_SHIFT\n");
+                if (mod == META && event.value == KEY_STROKE_UP) {
+                    // Release the same key, whether META or SHIFT
+                    event.code = meta_pressed_event.code;
+                    write_event(&event);
+                    state = START;
+                } else {
+                    write_event(&event);
+                }
+            break;
+
+            case META_AS_NONE:
+                if (debug) fprintf(stderr, "META_AS_NONE\n");
+                if (mod == META && event.value == KEY_STROKE_UP) {
+                    write_syn_event();
+                    state = START;
+                } else if (event.code == KEY_X) {
+                    event.code = KEY_CUT;
+                    write_event(&event);
+                } else if (event.code == KEY_C) {
+                    event.code = KEY_COPY;
+                    write_event(&event);
+                } else if (event.code == KEY_V) {
+                    event.code = KEY_PASTE;
+                    write_event(&event);
                 } else {
                     write_event(&event);
                 }
@@ -202,12 +270,12 @@ void usage(char *progname, int opt) {
 
 int main(int argc, char* argv[]) {
     int opt;
-    options_t options = { 0 };
+    options_t options = { .verbose = 0 };
 
     while ((opt = getopt(argc, argv, OPTSTR)) != EOF)
        switch(opt) {
-            case 's':
-                options.with_shift = 1;
+            case 'v':
+                options.verbose = 1;
             break;
 
 
@@ -217,5 +285,5 @@ int main(int argc, char* argv[]) {
             break;
        }
 
-    event_loop(options.with_shift);
+    event_loop(options.verbose);
 }
