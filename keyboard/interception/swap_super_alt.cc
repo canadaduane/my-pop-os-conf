@@ -45,7 +45,7 @@ void event_loop(int swap_left, int swap_right) {
         } else if (swap_left && event.code == KEY_LEFTMETA) {
             event.code = KEY_LEFTALT;
             write_event(&event);
-        } if (swap_right && event.code == KEY_RIGHTALT) {
+        } else if (swap_right && event.code == KEY_RIGHTALT) {
             event.code = KEY_RIGHTMETA;
             write_event(&event);
         } else if (swap_right && event.code == KEY_RIGHTMETA) {
@@ -65,8 +65,8 @@ void usage(char *progname, int opt) {
 int main(int argc, char* argv[]) {
     int opt;
     options_t options = {
-        .swap_left = 0,
-        .swap_right = 0
+        .swap_left = 1,
+        .swap_right = 1
     };
 
     while ((opt = getopt(argc, argv, OPTSTR)) != EOF)
