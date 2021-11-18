@@ -1,0 +1,6 @@
+# Keyboard
+
+The mutter "overlay-key" setting triggers an action that happens when you press and release the Meta (Super) key. Mutter itself doesn't know what that action will be--on my system, it appears `pop-shell` is responsible for opening the Launcher or other action.
+
+$ gsettings get org.gnome.mutter overlay-key
+
