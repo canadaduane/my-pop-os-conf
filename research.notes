@@ -4,3 +4,6 @@ The mutter "overlay-key" setting triggers an action that happens when you press 
 
 $ gsettings get org.gnome.mutter overlay-key
 
+# Get all settings
+
+$ dconf dump /
