@@ -6,3 +6,10 @@ dconf write /org/gnome/terminal/legacy/keybindings/copy "'Copy'"
 # Configure Gnome Terminal to use KEY_PASTE as the 'paste' key (instead of Ctrl+Shift+V)
 dconf write /org/gnome/terminal/legacy/keybindings/paste "'Paste'"
 [bash]
+
+On a system without wayland or X:
+- keymaps
+- dumpkeys
+- loadkeys
+
+https://wayland-book.com/seat/xkb.html
