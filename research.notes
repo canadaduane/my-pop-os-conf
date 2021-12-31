@@ -7,3 +7,9 @@ $ gsettings get org.gnome.mutter overlay-key
 # Get all settings
 
 $ dconf dump /
+
+# Remount an HFS+ USB drive as read-write
+
+$ sudo mount -t hfsplus \
+   -o remount,force,rw,nosuid,nodev,relatime,umask=22,uid=1000,gid=1000,nls=utf8,uhelper=udisks2 \
+   /media/duane/JOHNSONVID2
