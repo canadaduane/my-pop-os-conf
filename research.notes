@@ -13,3 +13,18 @@ $ dconf dump /
 $ sudo mount -t hfsplus \
    -o remount,force,rw,nosuid,nodev,relatime,umask=22,uid=1000,gid=1000,nls=utf8,uhelper=udisks2 \
    /media/duane/JOHNSONVID2
+
+# Compiling the Kernel
+
+$ mkdir ~/kernel; cd ~/kernel
+$ git clone --depth 1 git@github.com:pop-os/linux.git
+$ cd linux
+$ cp /boot/config-`uname -r` .config
+[Edit "CONFIG_LOCALVERSION" in .config to something like "mine"]
+$ make olddefconfig
+
+Great instructions specific to Pop OS here:
+https://www.reddit.com/r/pop_os/comments/n6st5b/how_to_recompile_and_install_new_kernel_on_pop_ps/
+
+General instructions here:
+https://wiki.archlinux.org/title/Kernel/Traditional_compilation
