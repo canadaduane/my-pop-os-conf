@@ -1,0 +1,17 @@
+!Bitwarden! - free and fully functional password manager (flatpak)
+
+!Discord! - chat software (flatpak)
+
+!Flameshot! - Awesome screenshots (install via flatpak)
+Settings -> Keyboard -> Keyboard Shortcuts -> Customize Shortcuts -> Custom Shortcuts
+    Name: "Flameshot" 
+    Command: "flatpak run org.flameshot.Flameshot gui"
+    Key: Cmd + Shift + 4
+
+!Nala! - command-line tool that does what the package tool "apt" does, but in a much friendlier way
+https://gitlab.com/volian/nala#installation
+
+!VS Code! - software development editor/IDE
+Plugins:
+- canadaduane/notes
+- amvim
