@@ -8,6 +8,9 @@ Settings -> Keyboard -> Keyboard Shortcuts -> Customize Shortcuts -> Custom Shor
     Command: "flatpak run org.flameshot.Flameshot gui"
     Key: Cmd + Shift + 4
 
+!LazyGit! - command-line tool that makes git commands faster & more visual
+https://github.com/jesseduffield/lazygit/releases/download/v0.34/lazygit_0.34_Linux_x86_64.tar.gz
+
 !Nala! - command-line tool that does what the package tool "apt" does, but in a much friendlier way
 https://gitlab.com/volian/nala#installation
 
