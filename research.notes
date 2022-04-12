@@ -1,18 +1,29 @@
+# Autostart
+
+Desktop files in `/etc/xdg/autostart` and `~/.config/autostart` will start automatically at each boot.
+
 # Keyboard
 
 The mutter "overlay-key" setting triggers an action that happens when you press and release the Meta (Super) key. Mutter itself doesn't know what that action will be--on my system, it appears `pop-shell` is responsible for opening the Launcher or other action.
 
 $ gsettings get org.gnome.mutter overlay-key
 
-# Get all settings
+To disable it:
+
+$ gsettings set org.gnome.mutter overlay-key ''
+
+
+# Get all Gnome settings
 
 $ dconf dump /
+
 
 # Remount an HFS+ USB drive as read-write
 
 $ sudo mount -t hfsplus \
    -o remount,force,rw,nosuid,nodev,relatime,umask=22,uid=1000,gid=1000,nls=utf8,uhelper=udisks2 \
    /media/duane/JOHNSONVID2
+
 
 # Compiling the Kernel
 
@@ -28,3 +39,4 @@ https://www.reddit.com/r/pop_os/comments/n6st5b/how_to_recompile_and_install_new
 
 General instructions here:
 https://wiki.archlinux.org/title/Kernel/Traditional_compilation
+
