@@ -1,0 +1,5 @@
+alias ls="exa"
+alias lg="gnome-terminal --full-screen --zoom=0.8 -- lazygit"
+alias du="gnome-terminal --full-screen --zoom=0.8 -- ncdu"
+alias n="gnome-terminal --full-screen --zoom=0.8 -- nnn"
+alias p="pnpm"

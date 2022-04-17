@@ -19,15 +19,25 @@ Settings -> Keyboard -> Keyboard Shortcuts -> Customize Shortcuts -> Custom Shor
 
 # Command-line Tools
 
-!FuzzyFinder! - Find files in current dir & subdirs
+!exa! - Better 'ls'
+sudo apt install exa
+
+!fzf! - Fuzzy Finder: find files in current dir & subdirs
 sudo apt install fzf
 
-!LazyGit! - Interact with git visually
+!lazygit! - Interact with git visually
 https://github.com/jesseduffield/lazygit/releases/download/v0.34/lazygit_0.34_Linux_x86_64.tar.gz
 
-!McFly! - Show better command history with ctrl-R
+!mcfly! - Show better command history with ctrl-R
 https://github.com/cantino/mcfly
 
-!Nala! - Like package tool "apt", but in a much friendlier way
+!nala! - Like package tool "apt", but in a much friendlier way
 https://gitlab.com/volian/nala#installation
+
+!ncdu! - ncurses "disk usage" (du) replacement
+sudo apt install ncdu
+
+!nnn! - File manager
+sudo apt install nnn
+
 
