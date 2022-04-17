@@ -1,6 +1,8 @@
-!Bitwarden! - free and fully functional password manager (flatpak)
+# Apps
 
-!Discord! - chat software (flatpak)
+!Bitwarden! - Free and fully functional password manager (flatpak)
+
+!Discord! - Chat software (flatpak)
 
 !Flameshot! - Awesome screenshots (install via flatpak)
 Settings -> Keyboard -> Keyboard Shortcuts -> Customize Shortcuts -> Custom Shortcuts
@@ -8,16 +10,24 @@ Settings -> Keyboard -> Keyboard Shortcuts -> Customize Shortcuts -> Custom Shor
     Command: "flatpak run org.flameshot.Flameshot gui"
     Key: Cmd + Shift + 4
 
-!FuzzyFinder! - command-line tool to find files
+
+!VS Code! - Software development editor/IDE
+    Plugins:
+    - canadaduane/notes
+    - amvim
+
+
+# Command-line Tools
+
+!FuzzyFinder! - Find files in current dir & subdirs
 sudo apt install fzf
 
-!LazyGit! - command-line tool that makes git commands faster & more visual
+!LazyGit! - Interact with git visually
 https://github.com/jesseduffield/lazygit/releases/download/v0.34/lazygit_0.34_Linux_x86_64.tar.gz
 
-!Nala! - command-line tool that does what the package tool "apt" does, but in a much friendlier way
+!McFly! - Show better command history with ctrl-R
+https://github.com/cantino/mcfly
+
+!Nala! - Like package tool "apt", but in a much friendlier way
 https://gitlab.com/volian/nala#installation
 
-!VS Code! - software development editor/IDE
-Plugins:
-- canadaduane/notes
-- amvim
