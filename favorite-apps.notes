@@ -4,11 +4,17 @@
 
 !Discord! - Chat software (flatpak)
 
+!Evolution! - Email and Calendar app (flatpak)
+See `./email` folder for shortcut key config
+
 !Flameshot! - Awesome screenshots (install via flatpak)
 Settings -> Keyboard -> Keyboard Shortcuts -> Customize Shortcuts -> Custom Shortcuts
     Name: "Flameshot" 
     Command: "flatpak run org.flameshot.Flameshot gui"
     Key: Cmd + Shift + 4
+
+!Thunar! - Better 'Gnome Files'
+sudo apt install thunar thunar-archive-plugin thunar-data thunar-dropbox-plugin thunar-font-manager thunar-gtkhash thunar-media-tags-plugin thunar-vcs-plugin thunar-volman thunarx-python
 
 
 !VS Code! - Software development editor/IDE
