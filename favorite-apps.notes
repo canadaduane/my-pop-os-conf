@@ -46,4 +46,14 @@ sudo apt install ncdu
 !nnn! - File manager
 sudo apt install nnn
 
+!libtree! - Show what shared libs a binary depends on
+https://github.com/haampie/libtree
 
+
+# Gnome Extensions
+
+ArcMenu - Adds launcher menu in top bar
+https://extensions.gnome.org/extension/3628/arcmenu/
+
+Vitals - Shows CPU, network in top bar
+https://extensions.gnome.org/extension/1460/vitals/

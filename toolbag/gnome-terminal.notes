@@ -1,0 +1,12 @@
+Add a little margin/padding to the border:
+
+Create `~/.config/gtk-3.0/gtk.css`, then add contents...
+
+[css]
+VteTerminal,
+TerminalScreen,
+vte-terminal {
+    padding: 10px 10px 10px 10px;
+    -VteTerminal-inner-border: 10px 10px 10px 10px;
+}
+[css]
