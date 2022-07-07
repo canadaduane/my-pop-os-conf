@@ -13,3 +13,10 @@ On a system without wayland or X:
 - loadkeys
 
 https://wayland-book.com/seat/xkb.html
+
+## Remove ibus keymaps
+
+There is a tool called `ibus` that takes control of Ctrl+Shift+E (emoji) and Ctrl+Shift+U (unicode) shortcut keys.
+
+To disable:
+  - Run `ibus-setup` and remove these bindings.
