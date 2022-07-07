@@ -1,11 +1,14 @@
 It's possible to set the gnome terminal default keybindings this way:
 
-[bash]
-# Configure Gnome Terminal to use KEY_COPY as the 'copy' key (instead of Ctrl+Shift+C)
+```bash
+# Configure Gnome Terminal to use KEY_COPY as the 'copy' key
+# (instead of Ctrl+Shift+C)
 dconf write /org/gnome/terminal/legacy/keybindings/copy "'Copy'"
-# Configure Gnome Terminal to use KEY_PASTE as the 'paste' key (instead of Ctrl+Shift+V)
+
+# Configure Gnome Terminal to use KEY_PASTE as the 'paste' key
+# (instead of Ctrl+Shift+V)
 dconf write /org/gnome/terminal/legacy/keybindings/paste "'Paste'"
-[bash]
+```
 
 On a system without wayland or X:
 - keymaps
