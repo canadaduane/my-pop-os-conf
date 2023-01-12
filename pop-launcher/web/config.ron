@@ -1,0 +1,21 @@
+(
+    rules: [
+        (
+            matches: ["j", "journal"],
+            queries: [(name: "Journal", query: "obsidian://open")]
+        ),
+        (
+            matches: ["jq"],
+            queries: [(name: "Journal Query", query: "obsidian://search?query=")]
+        ),
+        (
+            matches: ["jf"],
+            queries: [(name: "Go to Journal File", query: "obsidian://open?file=")]
+        ),
+        (
+            matches: ["jn"],
+            queries: [(name: "Create new Journal File", query: "obsidian://new?file=")]
+        ),
+    ]
+)
+
