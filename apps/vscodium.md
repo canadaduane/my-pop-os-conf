@@ -10,8 +10,9 @@ Plugins:
 Community:
 - https://www.reddit.com/r/vsCodium/
 
-Install:
-[bash]
+## Install:
+
+```bash
 wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg \
     | gpg --dearmor \
     | sudo dd of=/usr/share/keyrings/vscodium-archive-keyring.gpg
@@ -20,4 +21,24 @@ echo 'deb [ signed-by=/usr/share/keyrings/vscodium-archive-keyring.gpg ] https:/
     | sudo tee /etc/apt/sources.list.d/vscodium.list
 
 sudo apt update && sudo apt install codium
-[bash]
+```
+
+## Keyboard Shortcuts
+
+Enable VIM keys in File Explorer (workbench):
+
+(settings.json)
+```json
+{
+  "workbench.list.automaticKeyboardNavigation": false
+}
+```
+
+(keybindings.json)
+```json
+{
+  "key": "/",
+  "command": "list.toggleKeyboardNavigation",
+  "when": "explorerViewletFocus && explorerViewletVisible"
+}
+```
