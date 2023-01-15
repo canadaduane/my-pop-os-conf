@@ -1,6 +1,14 @@
 (
     rules: [
         (
+            matches: ["www"],
+            queries: [(
+                name: "Open Website",
+                query: "http://",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Crystal128-browser.svg/179px-Crystal128-browser.svg.png",
+            )],
+        ),
+        (
             matches: ["j", "journal"],
             queries: [(name: "Journal", query: "obsidian://open")]
         ),
