@@ -38,38 +38,51 @@ I run Pop 22.04 on a [Framework](https://frame.work) laptop. It has an integrate
 [VSCodium] - "Visual Studio Code" editor/IDE, minus the Microsoft trackers ([my setup](apps/vscodium.md))
 
 
-# Command-line Tools
+## Command-line Tools
 
-!exa! - Better 'ls'
+**exa** - Better 'ls'
 sudo apt install exa
 
-!fzf! - Fuzzy Finder: find files in current dir & subdirs
+**fzf** - Fuzzy Finder: find files in current dir & subdirs
 sudo apt install fzf
 
-!lazygit! - Interact with git visually
-https://github.com/jesseduffield/lazygit/releases/download/v0.34/lazygit_0.34_Linux_x86_64.tar.gz
+**lazygit** - Interact with git visually
+https://github.com/jesseduffield/lazygit/
 
-!mcfly! - Show better command history with ctrl-R
+**mcfly** - Show better command history with ctrl-R
 https://github.com/cantino/mcfly
 
-!nala! - Like package tool "apt", but in a much friendlier way
+**nala** - Like package tool "apt", but in a much friendlier way
 https://gitlab.com/volian/nala#installation
 
-!ncdu! - ncurses "disk usage" (du) replacement
+**ncdu** - ncurses "disk usage" (du) replacement
 sudo apt install ncdu
 
-!nnn! - File manager
+**nnn** - File manager
 sudo apt install nnn
 
-!libtree! - Show what shared libs a binary depends on
+**libtree** - Show what shared libs a binary depends on
 https://github.com/haampie/libtree
 
 
-# Gnome Extensions
+## Gnome Extensions
 
-Vitals - Shows CPU, network in top bar
-https://extensions.gnome.org/extension/1460/vitals/
-## Why I switched to Linux
+Note: I use [Extension Manager](https://beta.flathub.org/apps/com.mattjakeman.ExtensionManager) via flatpak to manage Gnome extensions.
+
+[Burn my Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/) - Just for fun, this animates the window open/close transitions. I use `Apparition` on open and `TV Glitch` on close.
+
+[Dash to Dock for COSMIC](https://extensions.gnome.org/extension/5004/dash-to-dock-for-cosmic/) - Provides a more Mac OS-like "dock" on the bottom of the screen, and makes it easier to manage multi-monitor setup.
+
+[Fullscreen Avoider](https://extensions.gnome.org/extension/4362/fullscreen-avoider/) - Shows the top bar on an alternate screen (if available) when in full-screen mode. This lets me see the time, for example, while in a Zoom meeting.
+
+[Fullscreen Hot Corner](https://extensions.gnome.org/extension/1562/fullscreen-hot-corner/) - Allows to use the upper-left "hot corner" to see workspaces overview, even while in full-screen mode.
+
+[One Thing](https://extensions.gnome.org/extension/5072/one-thing/) - Allows me to type something into the top bar, to help me maintain my focus on a task.
+
+[Vitals](https://extensions.gnome.org/extension/1460/vitals/) - Shows CPU, network in top bar
+
+
+# Why I switched to Linux
 
 Story time.
 
