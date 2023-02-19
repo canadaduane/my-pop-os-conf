@@ -20,18 +20,16 @@ I run Pop 22.04 on a [Framework](https://frame.work) laptop. It has an integrate
 
 [Foliate](https://johnfactotum.github.io/foliate/) - a bookshelf app to store and read e-books ([flatpak](https://flathub.org/apps/details/com.github.johnfactotum.Foliate))
 
-[Krita](https://krita.org/en/) - a powerful and slick pixel graphics and vector art app ([flatpak](https://flathub.org/apps/details/org.kde.krita))
-
 [Obsidian](https://obsidian.md/) - a searchable, personal knowledge base on top of time-honored local text files ([flatpak](https://flathub.org/apps/details/md.obsidian.Obsidian))
   - Maybe use [Logseq](https://logseq.com/) instead?
+
+[Pinta](https://www.pinta-project.com/) - a powerful raster graphics app ([flatpak](https://flathub.org/apps/details/com.github.PintaProject.Pinta))
 
 [Pop Dictionary](https://github.com/canadaduane/pop-dictionary) my attempt at making a simple-to-use dictionary (GoldenDict) function as a built-in cosmic launcher extension
 
 [Shotcut](https://www.shotcut.org/) - a sophisticated yet easy-to-use video editor ([flatpak](https://flathub.org/apps/details/org.shotcut.Shotcut))
 
 [Tauon Music Box](https://tauonmusicbox.rocks/) - a beautiful but dead-simple music player with a searchable catalog for your tunes ([flatpak](https://flathub.org/apps/details/com.github.taiko2k.tauonmb))
-
-[Thunar](https://docs.xfce.org/xfce/thunar/start) - Better 'Gnome Files' (apt | [my setup](apps/thunar.md))
 
 [Vivaldi](https://vivaldi.com/download/) - a chromium-based browser with a beautiful, best-in-class calendar and email capability
 
