@@ -33,35 +33,30 @@ I run Pop 22.04 on a [Framework](https://frame.work) laptop. It has an integrate
 
 [Vivaldi](https://vivaldi.com/download/) - a chromium-based browser with a beautiful, best-in-class calendar and email capability
 
-[VSCodium] - "Visual Studio Code" editor/IDE, minus the Microsoft trackers ([my setup](apps/vscodium.md))
+[VSCodium](https://vscodium.com/) - "Visual Studio Code" editor/IDE, minus the Microsoft trackers ([my setup](apps/vscodium.md))
 
 
 ## Command-line Tools
 
 **exa** - Better 'ls'
-sudo apt install exa
+`sudo apt install exa`
 
 **fzf** - Fuzzy Finder: find files in current dir & subdirs
-sudo apt install fzf
+`sudo apt install fzf`
 
-**lazygit** - Interact with git visually
-https://github.com/jesseduffield/lazygit/
+[lazygit](https://github.com/jesseduffield/lazygit/) - Interact with git visually
 
-**mcfly** - Show better command history with ctrl-R
-https://github.com/cantino/mcfly
+[mcfly](https://github.com/cantino/mcfly) - Show better command history with ctrl-R
 
-**nala** - Like package tool "apt", but in a much friendlier way
-https://gitlab.com/volian/nala#installation
+[nala](https://gitlab.com/volian/nala#installation) - Like package tool "apt", but in a much friendlier way
 
 **ncdu** - ncurses "disk usage" (du) replacement
-sudo apt install ncdu
+`sudo apt install ncdu`
 
 **nnn** - File manager
-sudo apt install nnn
+`sudo apt install nnn`
 
-**libtree** - Show what shared libs a binary depends on
-https://github.com/haampie/libtree
-
+[libtree](https://github.com/haampie/libtree) - Show what shared libs a binary depends on
 
 ## Gnome Extensions
 
