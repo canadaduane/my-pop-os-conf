@@ -13,10 +13,13 @@ To disable it:
 $ gsettings set org.gnome.mutter overlay-key ''
 
 
-# Get all Gnome settings
+# Get/restore all Gnome settings
 
-$ dconf dump /
-
+```
+dconf dump / >mysettings.conf    # save "changed" settings
+dconf reset -f /                 # reset all settings to default values
+dconf load  / < mysetting.conf   # restore "changed" settings
+```
 
 # Remount an HFS+ USB drive as read-write
 
