@@ -38,10 +38,10 @@ I run Pop 22.04 on a [Framework](https://frame.work) laptop. It has an integrate
 
 ## Command-line Tools
 
-**exa** - Better 'ls'
+[exa](https://the.exa.website/) - Better 'ls'
 `sudo apt install exa`
 
-**fzf** - Fuzzy Finder: find files in current dir & subdirs
+[fzf](https://github.com/junegunn/fzf) - Fuzzy Finder: find files in current dir & subdirs
 `sudo apt install fzf`
 
 [lazygit](https://github.com/jesseduffield/lazygit/) - Interact with git visually
@@ -50,11 +50,11 @@ I run Pop 22.04 on a [Framework](https://frame.work) laptop. It has an integrate
 
 [nala](https://gitlab.com/volian/nala#installation) - Like package tool "apt", but in a much friendlier way
 
-**ncdu** - ncurses "disk usage" (du) replacement
+[ncdu](https://dev.yorhel.nl/ncdu) - ncurses "disk usage" (du) replacement
 `sudo apt install ncdu`
 
-**nnn** - File manager
-`sudo apt install nnn`
+[walk](https://github.com/antonmedv/walk) - Simple folder navigation
+`go install github.com/antonmedv/walk@latest`
 
 [libtree](https://github.com/haampie/libtree) - Show what shared libs a binary depends on
 
