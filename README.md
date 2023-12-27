@@ -18,20 +18,18 @@ I run Pop 22.04 on a [Framework](https://frame.work) laptop. It has an integrate
 
 [Flameshot](https://flameshot.org/) - a screenshot app that lets you easily add annotations like text or arrows pointing to things ([flatpak](https://flathub.org/apps/details/org.flameshot.Flameshot) | [my setup](apps/flameshot.md))
 
-[Foliate](https://johnfactotum.github.io/foliate/) - a bookshelf app to store and read e-books ([flatpak](https://flathub.org/apps/details/com.github.johnfactotum.Foliate))
+[Geary](https://wiki.gnome.org/Apps/Geary) - an excellent multi-account email app native to Gnome ([flatpak](https://flathub.org/apps/org.gnome.Geary))
+
+[LazPaint](https://lazpaint.github.io) - a simple yet powerful raster graphics app
 
 [Obsidian](https://obsidian.md/) - a searchable, personal knowledge base on top of time-honored local text files ([flatpak](https://flathub.org/apps/details/md.obsidian.Obsidian))
   - Maybe use [Logseq](https://logseq.com/) instead?
-
-[Pinta](https://www.pinta-project.com/) - a powerful raster graphics app ([flatpak](https://flathub.org/apps/details/com.github.PintaProject.Pinta))
 
 [Pop Dictionary](https://github.com/canadaduane/pop-dictionary) my attempt at making a simple-to-use dictionary (GoldenDict) function as a built-in cosmic launcher extension
 
 [Shotcut](https://www.shotcut.org/) - a sophisticated yet easy-to-use video editor ([flatpak](https://flathub.org/apps/details/org.shotcut.Shotcut))
 
 [Tauon Music Box](https://tauonmusicbox.rocks/) - a beautiful but dead-simple music player with a searchable catalog for your tunes ([flatpak](https://flathub.org/apps/details/com.github.taiko2k.tauonmb))
-
-[Vivaldi](https://vivaldi.com/download/) - a chromium-based browser with a beautiful, best-in-class calendar and email capability
 
 [VSCodium](https://vscodium.com/) - "Visual Studio Code" editor/IDE, minus the Microsoft trackers ([my setup](apps/vscodium.md))
 
@@ -46,34 +44,17 @@ I run Pop 22.04 on a [Framework](https://frame.work) laptop. It has an integrate
 
 [lazygit](https://github.com/jesseduffield/lazygit/) - Interact with git visually
 
-[mcfly](https://github.com/cantino/mcfly) - Show better command history with ctrl-R
+[resh](https://github.com/curusarn/resh) - Show better command history with ctrl-R
 
 [nala](https://gitlab.com/volian/nala#installation) - Like package tool "apt", but in a much friendlier way
 
-[ncdu](https://dev.yorhel.nl/ncdu) - ncurses "disk usage" (du) replacement
-`sudo apt install ncdu`
-
-[walk](https://github.com/antonmedv/walk) - Simple folder navigation
-`go install github.com/antonmedv/walk@latest`
+[broot](https://dystroy.org/broot/install/) - Simple folder navigation ([download](https://dystroy.org/broot/download/x86_64-linux/broot))
 
 [libtree](https://github.com/haampie/libtree) - Show what shared libs a binary depends on
 
 ## Gnome Extensions
 
-Note: I use [Extension Manager](https://beta.flathub.org/apps/com.mattjakeman.ExtensionManager) via flatpak to manage Gnome extensions.
-
-[Burn my Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/) - Just for fun, this animates the window open/close transitions. I use `Apparition` on open and `TV Glitch` on close.
-
-[Dash to Dock for COSMIC](https://extensions.gnome.org/extension/5004/dash-to-dock-for-cosmic/) - Provides a more Mac OS-like "dock" on the bottom of the screen, and makes it easier to manage multi-monitor setup.
-
-[Fullscreen Avoider](https://extensions.gnome.org/extension/4362/fullscreen-avoider/) - Shows the top bar on an alternate screen (if available) when in full-screen mode. This lets me see the time, for example, while in a Zoom meeting.
-
-[Fullscreen Hot Corner](https://extensions.gnome.org/extension/1562/fullscreen-hot-corner/) - Allows to use the upper-left "hot corner" to see workspaces overview, even while in full-screen mode.
-
-[One Thing](https://extensions.gnome.org/extension/5072/one-thing/) - Allows me to type something into the top bar, to help me maintain my focus on a task.
-
-[Vitals](https://extensions.gnome.org/extension/1460/vitals/) - Shows CPU, network in top bar
-
+See [./gnome-extensions](./gnome-extensions/).
 
 # Why I switched to Linux
 
