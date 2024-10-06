@@ -1,11 +1,10 @@
 -- vim: tabstop=2 shiftwidth=2 expandtab
 
 local wezterm = require 'wezterm'
-local config = wezterm.config_builder()
 local appearance = require 'appearance'
 local projects = require 'projects'
-
--- config.default_prog = {'/Users/duane/.cargo/bin/dunesh'}
+local config = wezterm.config_builder()
+local act = wezterm.action
 
 config.set_environment_variables = {
     PATH = '/opt/homebrew/bin:' .. os.getenv('PATH')
@@ -121,6 +120,20 @@ end)
 -- the start of a line
 config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
 
+config.mouse_bindings = {
+  {
+    event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+    mods = 'NONE',
+    action = act.ScrollByLine(-1),
+  },
+  {
+    event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+    mods = 'NONE',
+    action = act.ScrollByLine(1),
+  },
+}
+
+
 -- Table mapping keypresses to actions
 config.keys = {
     -- Sends ESC + b and ESC + f sequence, which is used
@@ -128,19 +141,19 @@ config.keys = {
     {
         key = 'LeftArrow',
         mods = 'OPT',
-        action = wezterm.action.SendString '\x1bb', -- ESC + B
+        action = act.SendString '\x1bb', -- ESC + B
     },
 
     {
         key = 'RightArrow',
         mods = 'OPT',
-        action = wezterm.action.SendString '\x1bf', -- ESC + F
+        action = act.SendString '\x1bf', -- ESC + F
     },
 
     {
         key = ',',
-        mods = 'SUPER',
-        action = wezterm.action.SpawnCommandInNewTab {
+        mods = 'CTRL',
+        action = act.SpawnCommandInNewTab {
             cwd = wezterm.home_dir,
             args = { 'nvim', wezterm.config_file },
         },
@@ -151,7 +164,7 @@ config.keys = {
         -- When we're in leader mode _and_ CTRL + A is pressed...
         mods = 'LEADER|CTRL',
         -- Actually send CTRL + A key to the terminal
-        action = wezterm.action.SendKey { key = 'a', mods = 'CTRL' },
+        action = act.SendKey { key = 'a', mods = 'CTRL' },
     },
 
     {
@@ -165,7 +178,7 @@ config.keys = {
         key = 'f',
         mods = 'LEADER',
         -- Present a list of existing workspaces
-        action = wezterm.action.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' },
+        action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' },
     },
 
     {
@@ -184,11 +197,80 @@ config.keys = {
         },
     },
 
+    { key = 'PageUp', action = act.ScrollByPage(-1) },
+    { key = 'PageDown', action = act.ScrollByPage(1) },
+
+
     {
         key = 'r',
         mods = 'CTRL|OPT',
-        action = wezterm.action.SendKey { key = 'r', mods = 'CTRL' },
+        action = act.SendKey { key = 'r', mods = 'CTRL' },
+    },
+
+    {
+        key = 'w',
+        mods = 'CTRL',
+        action = act.CloseCurrentPane { confirm = true },
+    },
+
+    {
+        key = 't',
+        mods = 'CTRL',
+        action = act.SpawnTab "CurrentPaneDomain",
+    },
+
+    {
+        key = 'Escape',
+        action = wezterm.action_callback(function(window, pane)
+            selection_text = window:get_selection_text_for_pane(pane)
+            is_selection_active = string.len(selection_text) ~= 0
+            if is_selection_active then
+                window:perform_action(act.ClearSelection, pane)
+            else
+                window:perform_action(act.SendKey{ key = 'Escape' }, pane)
+            end
+        end),
+    },
+
+    {
+        key = 'c',
+        mods = 'CTRL',
+        action = wezterm.action_callback(function(window, pane)
+          local has_selection = window:get_selection_text_for_pane(pane) ~= ''
+          if has_selection then
+            window:perform_action(act.CopyTo 'Clipboard', pane)
+            window:perform_action(act.ClearSelection, pane)
+          else
+            window:perform_action(act.SendKey { key = 'c', mods = 'CTRL' }, pane)
+          end
+        end),
+    },
+
+    {
+        key = 'v',
+        mods = 'CTRL',
+        action = act.PasteFrom 'Clipboard'
+    },
+
+    -- Clears the scrollback and viewport, and then sends CTRL-L
+    -- to ask the shell to redraw its prompt
+    {
+        key = 'k',
+        mods = 'CTRL',
+        action = act.Multiple {
+          act.ClearScrollback 'ScrollbackAndViewport',
+          act.SendKey { key = 'L', mods = 'CTRL' },
+        },
     },
 }
+
+for i = 1, 8 do
+  -- CTRL + number to activate that tab
+  table.insert(config.keys, {
+    key = tostring(i),
+    mods = 'ALT',
+    action = act.ActivateTab(i - 1),
+  })
+end
 
 return config
