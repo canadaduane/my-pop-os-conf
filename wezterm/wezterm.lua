@@ -11,7 +11,10 @@ config.set_environment_variables = {
 }
 
 if appearance.is_dark() then
-    config.color_scheme = 'Dracula'
+    -- config.color_scheme = 'Dracula'
+    -- config.color_scheme = 'Aardvark Blue'
+    -- config.color_scheme = 'Elio (Gogh)'
+    config.color_scheme = 'Galaxy'
 else
     config.color_scheme = 'Tokyo Night Day'
 end
@@ -118,7 +121,7 @@ end)
 -- If you're using emacs you probably wanna choose a different leader here,
 -- since we're gonna be making it a bit harder to CTRL + A for jumping to
 -- the start of a line
-config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
+-- config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
 
 config.mouse_bindings = {
   {
